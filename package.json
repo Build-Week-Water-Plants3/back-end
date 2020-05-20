@@ -1,0 +1,41 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "jest": {
+    "testEnivronment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Build-Week-Water-Plants3/back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Build-Week-Water-Plants3/back-end/issues"
+  },
+  "homepage": "https://github.com/Build-Week-Water-Plants3/back-end#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.1",
+    "sqlite3": "^4.2.0",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4"
+  }
+}
