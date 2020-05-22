@@ -6,14 +6,13 @@ exports.up = function(knex) {
         .unique()
         .notNullable();
         tbl.text("password", 128)
-        .unique()
         .notNullable();
         tbl.text("hone Number")
         .notNullable();
     })
     .createTable("species", tbl => {
         tbl.increments();
-        tbl.text("scientificName", 255)
+        tbl.text("name", 255)
         .notNullable();
     })
     .createTable("plants", tbl => {
@@ -23,9 +22,9 @@ exports.up = function(knex) {
         tbl.text("H2Ofrequency")
         .notNullable();
         tbl.text("image");
-        tbl.text("species_scientificName")
+        tbl.text("species_name")
         .unsigned()
-        .references('scientificName')
+        .references('name')
         .inTable('species')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
