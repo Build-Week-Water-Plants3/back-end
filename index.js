@@ -20,10 +20,6 @@ server.get("/", (req, res) => {
     res.json({message:"Weclome to the server!"})
 })
 
-server.use((err, req, res, next) => {
-    res.status(500).json({message: "Something went worng"})
-})
-
 server.get('/token', (req, res) => {
     const payload = {
         subject: "thisuser",
@@ -37,8 +33,14 @@ server.get('/token', (req, res) => {
     }
     const token = jwt.sign(payload, secret, options);
 
-    res.json
+    res.json(token);
 })
+
+server.use((err, req, res, next) => {
+    res.status(500).json({message: "Something went worng"})
+})
+
+
 
 
 if(!module.parent) {

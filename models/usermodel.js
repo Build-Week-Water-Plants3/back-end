@@ -1,23 +1,16 @@
 const db = require('../data/dbconfig');
 
 function getPlants(id) {
-    return db('plants')
-    .join('users', 'plants.user_id', 'user.id')
-    .join('species', 'plants.species_name', 'species.name' )
-    .select('plants.id', 'plants.nickname','plants.H2Ofrequency', 'plants.image', 'plants.species_name')
-    .where({'plants.user_id': id})
-
+    return db('plants').where('user_id', id).orderBy('id')
 }
 
 function getUserById(id) {
-    return db('users').select('username', 'number')
-    .where({id})
+    return db('users')
+    .where("id", id)
     .first();
 }
 
-function getPlantById(plantid) {
-    return db('plants').where({id: plantid}).first();
-}
+
 
 function addPlants(plant) {
     return db('plants').insert(plant)
@@ -33,11 +26,15 @@ function removePlants(plantid) {
     return db('plants').where({id: plantid}).del();
 }
 
+function find() {
+    return db('users').select('id', 'username', 'password', 'Number');
+}
+
 module.exports = {
     getPlants,
     getUserById,
-    getPlantById,
     addPlants,
     updatePlant,
-    removePlants
+    removePlants,
+    find
 }

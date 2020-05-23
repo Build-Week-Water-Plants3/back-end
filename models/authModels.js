@@ -3,7 +3,7 @@ const db = require('../data/dbconfig');
 function findById(id) {
     return db('users')
     .where({id})
-    .first()
+    .first();
 }
 
 async function add(user) {
