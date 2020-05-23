@@ -13,15 +13,10 @@ exports.up = function(knex) {
         tbl.text("Number")
         .notNullable();
     })
-    .createTable("species", tbl => {
-        tbl.increments();
-        
-        tbl.text("name", 255)
-        .notNullable();
-    })
+
     .createTable("plants", tbl => {
         tbl.increments();
-
+        
         tbl.text("nickname", 225)
         .notNullable();
 
@@ -30,16 +25,15 @@ exports.up = function(knex) {
 
         tbl.text("image");
 
-        tbl.text("species_name")
-        .unsigned()
-        .references('name')
-        .inTable('species');
+        tbl.text("species_name");
 
         tbl.text("user_id")
         .unsigned()
         .notNullable()
         .references("id")
-        .inTable("users");
+        .inTable("users")
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
     })
   
 };
@@ -47,7 +41,7 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema
     .dropTableIfExists("plants")
-    .dropTableIfExists("species")
+
     .dropTableIfExists("users");
   
 };
