@@ -50,6 +50,21 @@ router.put("/:plants/:plantid", (req, res) => {
     .catch( err => {
         res.status(500).json({Message: 'Failed to update plant'})
     })
+});
+
+router.delete('/:plants/:plantid', (req, res) => {
+    const {plantid} = req.params;
+
+    Users.removePlants(plantid)
+    .then(deleted => {
+        if(deleted) {res.json({removed: deleted})
+    } else {
+        res.status(404).json({Message: 'Could not find plant with given id'})
+    }
+    })
+    .catch(err => {
+        res.status(500).json({message: 'Failed to delete plant'})
+    })
 })
 
 

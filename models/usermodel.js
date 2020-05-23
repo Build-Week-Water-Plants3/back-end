@@ -10,7 +10,7 @@ function getPlants(id) {
 }
 
 function getUserById(id) {
-    return db('users').select('username', 'phone_number')
+    return db('users').select('username', 'number')
     .where({id})
     .first();
 }
