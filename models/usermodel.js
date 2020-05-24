@@ -27,7 +27,7 @@ function removePlants(plantid) {
 }
 
 function find() {
-    return db('users').select('id', 'username', 'password', 'Number');
+    return db('users').select('id', 'username', 'password');
 }
 
 module.exports = {
