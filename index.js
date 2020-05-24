@@ -17,7 +17,7 @@ server.use('/api/auth', authRouter);
 server.use('/api/user', userRouter);
 
 server.get("/", (req, res) => {
-    res.json({message:"Weclome to the server!"})
+    res.json({message:"Welcome to the server!"})
 })
 
 server.get('/token', (req, res) => {
