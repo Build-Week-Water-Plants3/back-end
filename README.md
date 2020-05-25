@@ -55,7 +55,66 @@ On success a token and a user object will be returned.
     "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6ImNyYW5iZXJyeSIsImlhdCI6MTU5MDM0OTUyMSwiZXhwIjoxNTkwMzUxMzIxfQ.uI2gmyk-u8SIQShwdflZbcvoKv3vpfGX0KtjIp661QI"
 }
 ```
+# PLANT Endpoints
 
+Only logged in users can view, create, update, and delete plants.
 
+GET /api/users/:id/plants
+
+must be loggin in to view your list of plants
+:id is your user.id you revieve once you logged in
+
+Possible status codes
+
+200 Will view users list of plants
+404 User has no plants
+
+POST /api/users/:id/plants
+
+must be logged in to add a plant.
+plant must have the following information
+
+```
+    {
+        "nickname": ,
+        "H2Ofrequency": ,
+        "image": ,
+        "species_name": ,
+        "user_id": 
+    }
+```
+You will be given a plant id
+
+Possible status codes
+ 201 success plant created
+ 500 cannot add plant
+ 
+PUT /api/users/:plants/plant:id
+
+must be logged in to updated information on a plant.
+
+can update any one of the following fields
+
+```
+    {
+        "nickname": ,
+        "H2Ofrequency": ,
+        "image": ,
+        "species_name": ,
+    }
+```
+
+Possible status codes
+200 success
+500 cannot update plant
+
+DELETE /api/users/:plants/plant:id
+
+must be logged in to remove plant
+
+possible status codes
+
+200 Removed 1
+404 Cannot remove plant with given id
 
 
