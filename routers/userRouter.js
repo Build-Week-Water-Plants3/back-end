@@ -11,7 +11,7 @@ router.get("/", restricted, (req,res) => {
     .catch(err => res.send(err));
 })
 // works
-router.get("/:id", async(req, res, next) => {
+router.get("/:id", restricted, async(req, res, next) => {
     try {
         const User = await Users.getUserById(req.params.id)
         if(!User) {
@@ -39,40 +39,28 @@ router.get('/:id/plants', (req, res) => {
         res.status(500).json({message: 'Failed to get plants'});
     })
 })
+// works
+router.post("/:id/plants", async (req, res) => {
+    const {id } = req.params;
+    const plantData = {...req.body, user_id: id}
+    try {
+        const newPlant = await Users.addPlant(plantData);
+        res.status(201).json(newPlant);
+    } catch({ name, message}) {
+        res.status(500).json({name, message});
+    }
 
-router.post("/:id/plants", (req, res) => {
-    const newPlant = req.body;
-    Users.addPlants(newPlant)
-    .then(plant => {
-        if(plant.nickname && plant.H20frequency && plant.species_name) {
-            res.status(201).json(plant);
-        } else {
-            res.status(500).json({Message: 'Missing fields'})
-        }
-    })
-    .catch(err => {
-        res.status(500).json({Message: 'Cannot add plant'})
-    })
 })
-
-router.put("/:plants/:plantid", (req, res) => {
-    const {nickname, H20frequency, species_name, user_id} = req.params;
-    const plant = req.body;
-
-    Users.getPlantById(plantid)
-    .then(plant => {
-        if(plant) {
-            Users.updatePlant(plant, plantid)
-            .then(updatedPlant => {
-                res.json(updatedPlant);
-            })
-        } else {
-            res.status(404).json({Message: 'Cannot find plant with given id'})
-        }
-    })
-    .catch( err => {
-        res.status(500).json({Message: 'Failed to update plant'})
-    })
+// works
+router.put("/:plants/:plantid", async (req, res) => {
+    const {_, plantid} = req.params;
+    const plantData = req.body;
+    try {
+        const updated = await Users.updatePlant(plantData, plantid);
+        res.status(200).json(updated);
+    } catch (err) {
+        res.status(500).json({error: "Plant cannot be updated"})
+    }
 });
 //works
 router.delete('/:plants/:plantid', (req, res) => {
