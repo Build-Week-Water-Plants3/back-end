@@ -12,16 +12,16 @@ async function add(user) {
 }
 
 function find() {
-    return db('users').select('id');
+    return db('users').select('id', 'username', 'password');
 }
 
-function findyBy(filter) {
+function findBy(filter) {
     return db('users').where(filter);
 }
 
 module.exports = {
     add,
     find,
-    findyBy,
+    findBy,
     findById
 }

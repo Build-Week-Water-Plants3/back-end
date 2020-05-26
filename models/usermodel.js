@@ -10,10 +10,19 @@ function getUserById(id) {
     .first();
 }
 
+function addPlant(plantData) {
+    return db('plants').insert(plantData, 'id').then((ids) => {
+        const [id] = ids;
+        return db('plants').where({id}).first().then((obj) => {
+            return getPlants(obj.user_id);
+        })
+    })
+}
 
 
-function addPlants(plant) {
-    return db('plants').insert(plant)
+async function insert(plant) {
+    const [id] = await db("plants").insert(plant);
+    return findById(id)
 }
 
 function updatePlant(plant, plantid) {
@@ -27,14 +36,15 @@ function removePlants(plantid) {
 }
 
 function find() {
-    return db('users').select('id', 'username', 'password', 'Number');
+    return db('users').select('id', 'username', 'password');
 }
 
 module.exports = {
     getPlants,
     getUserById,
-    addPlants,
+    insert,
     updatePlant,
     removePlants,
-    find
+    find,
+    addPlant
 }
