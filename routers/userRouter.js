@@ -25,7 +25,7 @@ router.get("/:id", restricted, async(req, res, next) => {
     }
 })
 //works
-router.get('/:id/plants', (req, res) => {
+router.get('/:id/plants', restricted, (req, res) => {
     const {id} = req.params;
     Users.getPlants(id)
     .then(plants => {
@@ -40,19 +40,18 @@ router.get('/:id/plants', (req, res) => {
     })
 })
 // works
-router.post("/:id/plants", async (req, res) => {
+router.post("/:id/plants", restricted, async (req, res) => {
     const {id } = req.params;
     const plantData = {...req.body, user_id: id}
     try {
         const newPlant = await Users.addPlant(plantData);
         res.status(201).json(newPlant);
-    } catch({ name, message}) {
-        res.status(500).json({name, message});
+    } catch(err) {
+        res.status(500).json({error: 'cannot add plant'})
     }
-
 })
 // works
-router.put("/:plants/:plantid", async (req, res) => {
+router.put("/:plants/:plantid", restricted, async (req, res) => {
     const {_, plantid} = req.params;
     const plantData = req.body;
     try {
@@ -63,7 +62,7 @@ router.put("/:plants/:plantid", async (req, res) => {
     }
 });
 //works
-router.delete('/:plants/:plantid', (req, res) => {
+router.delete('/:plants/:plantid', restricted, (req, res) => {
     const {plantid} = req.params;
 
     Users.removePlants(plantid)

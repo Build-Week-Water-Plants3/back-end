@@ -7,7 +7,7 @@ const authRouter = require('./routers/authRouter');
 const userRouter = require('./routers/userRouter');
 
 const server = express();
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 
 server.use(helmet());
 server.use(cors());
