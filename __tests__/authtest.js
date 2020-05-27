@@ -23,12 +23,3 @@ beforeEach(async () => {
      })
  })
 
- describe("login test", () => {
-     it("return Welcome ${user.username}", () => {
-         return supertest(server).post("/api/auth/login").send({ username: 'dpinkett', password: 'test1'})
-     })
-     it('return 401 error', () => {
-         return supertest(server).post('/api/auth/login').send({ username: '', password: ''})
-         .then(res => {expect(res.status).toBe(401)})
-     })
- })
