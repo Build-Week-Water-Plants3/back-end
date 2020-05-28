@@ -27,7 +27,7 @@ exports.up = function(knex) {
 
         tbl.text("species_name");
 
-        tbl.text("user_id")
+        tbl.integer("user_id")
         .unsigned()
         .notNullable()
         .references("id")
