@@ -10,8 +10,8 @@ describe('GET/ on server', () => {
         const res = await supertest(server).get('/');
         expect(res.type).toBe('application/json');
     });
-    it('return Welcome to the server!', async () => {
+    it('return message: Welcome to the server!', async () => {
         const res = await supertest(server).get('/');
-        expect(res.body).toEqual('Welcome to the server!')
+        expect(res.body).toEqual({message:'Welcome to the server!'})
     })
 })
