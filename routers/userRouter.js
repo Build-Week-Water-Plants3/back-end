@@ -13,11 +13,10 @@ router.get("/", restricted, (req,res) => {
 // works
 router.get("/:id", restricted, async(req, res, next) => {
     try {
-        const User = await Users.getUserById(req.params.id);
-        const plants = await Users.getPlants(req.params.id);
-        if(User) {
-            return res.status(200).json({
-                ...User, plants
+        const User = await Users.getUserById(req.params.id)
+        if(!User) {
+            return res.status(404).json({
+                message: "User not found"
             })
         }
         res.json(User)
@@ -26,7 +25,20 @@ router.get("/:id", restricted, async(req, res, next) => {
     }
 })
 //works
-
+router.get('/:id/plants', restricted, (req, res) => {
+    const {id} = req.params;
+    Users.getPlants(id)
+    .then(plants => {
+        if(plants.length) {
+            res.json(plants);
+        } else {
+            res.status(404).json({message: 'User has no plants'})
+        }
+    })
+    .catch(err => {
+        res.status(500).json({message: 'Failed to get plants'});
+    })
+})
 // works
 router.post("/:id/plants", restricted, async (req, res) => {
     const {id } = req.params;
@@ -35,7 +47,7 @@ router.post("/:id/plants", restricted, async (req, res) => {
         const newPlant = await Users.addPlant(plantData);
         res.status(201).json(newPlant);
     } catch(err) {
-        res.status(500).json({error: 'cannot add plant'})
+        res.status(500).json({message: 'cannot add plant'})
     }
 })
 // works
