@@ -47,7 +47,7 @@ router.post("/:id/plants", restricted, async (req, res) => {
         const newPlant = await Users.addPlant(plantData);
         res.status(201).json(newPlant);
     } catch(err) {
-        res.status(500).json({error: 'cannot add plant'})
+        res.status(500).json({message: 'cannot add plant'})
     }
 })
 // works
