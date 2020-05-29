@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const Users = require("../models/usermodel");
-const restricted = require('../middleware/restricted-middleware')
+
 
 // works
-router.get("/", restricted, (req,res) => {
+router.get("/",  (req,res) => {
     Users.find()
     .then(users => {
         res.json(users);
@@ -11,7 +11,7 @@ router.get("/", restricted, (req,res) => {
     .catch(err => res.send(err));
 })
 // works
-router.get("/:id", restricted, async(req, res, next) => {
+router.get("/:id",  async(req, res, next) => {
     try {
         const User = await Users.getUserById(req.params.id)
         if(!User) {
@@ -25,7 +25,7 @@ router.get("/:id", restricted, async(req, res, next) => {
     }
 })
 //works
-router.get('/:id/plants', restricted, (req, res) => {
+router.get('/:id/plants',  (req, res) => {
     const {id} = req.params;
     Users.getPlants(id)
     .then(plants => {
@@ -40,7 +40,7 @@ router.get('/:id/plants', restricted, (req, res) => {
     })
 })
 // works
-router.post("/:id/plants", restricted, async (req, res) => {
+router.post("/:id/plants",  async (req, res) => {
     const {id } = req.params;
     const plantData = {...req.body, user_id: id}
     try {
@@ -51,7 +51,7 @@ router.post("/:id/plants", restricted, async (req, res) => {
     }
 })
 // works
-router.put("/:plants/:plantid", restricted, async (req, res) => {
+router.put("/:plants/:plantid",  async (req, res) => {
     const {_, plantid} = req.params;
     const plantData = req.body;
     try {
@@ -62,7 +62,7 @@ router.put("/:plants/:plantid", restricted, async (req, res) => {
     }
 });
 //works
-router.delete('/:plants/:plantid', restricted, (req, res) => {
+router.delete('/:plants/:plantid', (req, res) => {
     const {plantid} = req.params;
 
     Users.removePlants(plantid)
