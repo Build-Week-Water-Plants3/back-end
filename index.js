@@ -3,6 +3,8 @@ const cors = require("cors");
 const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 
+const restricted = require('./middleware/restricted-middleware');
+
 const authRouter = require('./routers/authRouter');
 const userRouter = require('./routers/userRouter');
 
@@ -14,7 +16,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/auth', authRouter);
-server.use('/api/users', userRouter);
+server.use('/api/users', restricted, userRouter);
 
 server.get("/", (req, res) => {
     res.json({message: "Welcome to the server!"})
